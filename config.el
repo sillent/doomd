@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -73,3 +73,38 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs_undo")))
+(load! "lisp/my.el")
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")))
+(use-package! ace-window
+  :bind
+  ("M-o" . ace-window))
+(use-package! zygospore
+  :bind
+  ("C-x 1" . zygospore-toggle-delete-other-windows))
+(use-package! undo-tree
+  :commands undo-tree-visualize
+  :bind
+  ("C-x u" . undo-tree-visualize)
+  :config
+  (global-undo-tree-mode 1))
+
+;; fonts
+(setq doom-font (font-spec :family "UbuntuSansMono" :size 12))
+(map! "C-+" #'text-scale-increase
+      "C--" #'text-scale-decrease
+      "C-0" (cmd! (text-scale-set 0)))
+
+(after! projectile
+  (projectile-session-mode 1))
+
+(add-hook 'eshell-mode-hook
+          (lambda () (setenv "TERM" "xterm-256color")))
+
+;;(map! "C-c m i" #'my/delete-inside-sexp)
+(map! "C-c m i" #'my/delete-inside-pair
+      "C-c m a" #'my/delete-around-pair
+      "C-c m v" #'my/wrap-with-pair)
