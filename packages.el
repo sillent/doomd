@@ -54,3 +54,4 @@
 (package! ace-window)
 (package! zygospore)
 (package! undo-tree)
+(package! catppuccin-theme)

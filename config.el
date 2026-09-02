@@ -3,11 +3,12 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 ;; (setq user-full-name "John Doe"
 ;;       user-mail-address "john@doe.com")
+(setq user-full-name "Dmitry Ulynov"
+      user-mail-address "sillent1987@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -28,11 +29,20 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
+;; fonts
+(cond
+ ((eq system-type 'darwin)
+  (setq doom-font (font-spec :family "UbuntuSansMono Nerd Font Mono" :size 12)))
+ ((eq system-type 'gnu-linux)
+  (setq doom-font (font-spec :family "UbuntuSansMono" :size 12)))
+ )
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq catppuccin-flavor 'frappe)
+(setq doom-theme 'catppuccin)
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -92,8 +102,6 @@
   :config
   (global-undo-tree-mode 1))
 
-;; fonts
-(setq doom-font (font-spec :family "UbuntuSansMono" :size 12))
 (map! "C-+" #'text-scale-increase
       "C--" #'text-scale-decrease
       "C-0" (cmd! (text-scale-set 0)))
@@ -108,3 +116,11 @@
 (map! "C-c m i" #'my/delete-inside-pair
       "C-c m a" #'my/delete-around-pair
       "C-c m v" #'my/wrap-with-pair)
+
+(after! lsp
+  (progn
+    (setq lsp-lens-enable t)
+    (setq lsp-rust-analyzer-proc-macro-enable t)
+    (setq lsp-rust-analyzer-experimental-proc-attr-macros t)
+    (setq lsp-rust-analyzer-cargo-watch-enable nil)
+    ))
