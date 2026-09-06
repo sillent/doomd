@@ -189,3 +189,53 @@ DELIMITER можно указывать любой стороной пары."
 
           ;; Возвращаем point между delimiters.
           (backward-char 1))))))
+
+(defun my/directory-files-recursively (directory regexp &optional follow-symlinks)
+  "Рекурсивно найти файлы в DIRECTORY с помощью `fd'.
+
+REGEXP интерпретируется командой `fd'.
+Возвращает список абсолютных путей.
+
+Если FOLLOW-SYMLINKS non-nil, следовать по символическим ссылкам."
+  (let ((fd (executable-find "fd")))
+    (unless fd
+      (user-error "Команда `fd' не найдена в PATH"))
+
+    (let ((directory (expand-file-name directory))
+          args)
+
+      (unless (file-directory-p directory)
+        (user-error "Директория не существует: %s" directory))
+
+      (setq args
+            (append
+             (list
+              "--type" "f"
+              "--absolute-path"
+              "--hidden"
+              "--no-ignore"
+              "--color" "never")
+
+             (when follow-symlinks
+               (list "--follow"))
+
+             (list regexp directory)))
+
+      (with-temp-buffer
+        (let ((exit-code
+               (apply #'process-file
+                      fd
+                      nil
+                      t
+                      nil
+                      args)))
+          (unless (zerop exit-code)
+            (error
+             "fd завершился с кодом %s: %s"
+             exit-code
+             (string-trim (buffer-string))))
+
+          (split-string
+           (buffer-string)
+           "\n"
+           t))))))
