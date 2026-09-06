@@ -125,6 +125,24 @@
     (setq lsp-rust-analyzer-experimental-proc-attr-macros t)
     (setq lsp-rust-analyzer-cargo-watch-enable nil)
     ))
-;; (map! "C-c k p" #'my/k8s-prod
-;;       "C-c k s" #'my/k8s-stage
-;;       "C-c k t" #'my/k8s-sandbox)
+
+;; Fullsize (0.9)
+(add-hook 'doom-init-ui-hook
+          (lambda ()
+            (let* ((display-width (display-pixel-width))
+                   (display-height (display-pixel-height))
+                   (target-width (truncate (* display-width 0.9)))
+                   (target-height (truncate (* display-height 0.9)))
+                   ;; Center the window on the screen
+                   (left-pos (truncate (/ (- display-width target-width) 2)))
+                   (top-pos (truncate (/ (- display-height target-height) 2))))
+
+              (set-frame-size (selected-frame) target-width target-height t)
+              (set-frame-position (selected-frame) left-pos top-pos))))
+
+;; transparency
+;; Source - https://stackoverflow.com/a/21949449
+;; Posted by lawlist, modified by community. See post 'Timeline' for change history
+;; Retrieved 2026-09-06, License - CC BY-SA 4.0
+(set-frame-parameter (selected-frame) 'alpha '(92 92))
+(add-to-list 'default-frame-alist '(alpha 92 92))
