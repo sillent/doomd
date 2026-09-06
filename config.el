@@ -85,6 +85,7 @@
 ;; they are implemented.
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs_undo")))
 (load! "lisp/my.el")
+(load! "lisp/kuber.el")
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Tasks")
@@ -124,3 +125,6 @@
     (setq lsp-rust-analyzer-experimental-proc-attr-macros t)
     (setq lsp-rust-analyzer-cargo-watch-enable nil)
     ))
+;; (map! "C-c k p" #'my/k8s-prod
+;;       "C-c k s" #'my/k8s-stage
+;;       "C-c k t" #'my/k8s-sandbox)
