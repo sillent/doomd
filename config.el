@@ -33,7 +33,7 @@
 (cond
  ((eq system-type 'darwin)
   (setq doom-font (font-spec :family "UbuntuSansMono Nerd Font Mono" :size 12)))
- ((eq system-type 'gnu-linux)
+ ((eq system-type 'gnu/linux)
   (setq doom-font (font-spec :family "UbuntuSansMono" :size 12)))
  )
 
