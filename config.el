@@ -141,8 +141,5 @@
               (set-frame-position (selected-frame) left-pos top-pos))))
 
 ;; transparency
-;; Source - https://stackoverflow.com/a/21949449
-;; Posted by lawlist, modified by community. See post 'Timeline' for change history
-;; Retrieved 2026-09-06, License - CC BY-SA 4.0
 (set-frame-parameter (selected-frame) 'alpha '(92 92))
 (add-to-list 'default-frame-alist '(alpha 92 92))
