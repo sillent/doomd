@@ -55,3 +55,4 @@
 (package! zygospore)
 (package! undo-tree)
 (package! catppuccin-theme)
+(package! ob-http)
