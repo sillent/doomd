@@ -140,6 +140,11 @@
               (set-frame-size (selected-frame) target-width target-height t)
               (set-frame-position (selected-frame) left-pos top-pos))))
 
-;; transparency
+;; transparency 16426 161426
 (set-frame-parameter (selected-frame) 'alpha '(92 92))
 (add-to-list 'default-frame-alist '(alpha 92 92))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (http . t)))
