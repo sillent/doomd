@@ -141,5 +141,12 @@
               (set-frame-position (selected-frame) left-pos top-pos))))
 
 ;; transparency
-(set-frame-parameter (selected-frame) 'alpha '(92 92))
-(add-to-list 'default-frame-alist '(alpha 92 92))
+(set-frame-parameter (selected-frame) 'alpha '(98 98))
+(add-to-list 'default-frame-alist '(alpha 98 98))
+(set-frame-parameter (selected-frame) 'alpha-background 98)
+(add-to-list 'default-frame-alist '(alpha-background . 98))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (http . t)))
